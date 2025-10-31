@@ -1,8 +1,11 @@
 <section>
   <h2 class="texto-titulo">Minhas leituras</h2>
+  <button class="botao" (click)="handleFavoritosOrAll(!isFavoritos)">
+    {{ isFavoritos ? 'Ver todos' : 'Meus favoritos' }}
+  </button>
   <span class="linha-destaque linha-destaque--grande"></span>
 </section>
 
 @for (genero of generos; track genero) {
-  <app-genero-literario [genero]="genero"></app-genero-literario>
+<app-genero-literario [genero]="genero"></app-genero-literario>
 }

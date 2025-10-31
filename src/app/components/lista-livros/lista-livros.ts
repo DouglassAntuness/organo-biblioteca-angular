@@ -12,9 +12,15 @@ import { GeneroLiterarioComponent } from "../genero-literario/genero-literario";
 export class ListaLivrosComponent implements OnInit {
   generos: IGeneroLiterario[] = [];
   livrosPorGenero: Map<string, ILivro[]> = new Map();
+  isFavoritos: boolean = false;
 
   ngOnInit() {
+    this.handleFavoritosOrAll(false);
+  }
+
+  handleFavoritosOrAll(isFavoritos: boolean) {
     this.livrosPorGenero = new Map();
+    this.isFavoritos = isFavoritos;
 
     livros.forEach((livro) => {
       const generoId = livro.genero.id;
@@ -32,27 +38,32 @@ export class ListaLivrosComponent implements OnInit {
       {
         id: 'romance',
         value: "Romance",
-        livros: this.livrosPorGenero.get("romance") ?? []
+        livros: isFavoritos ? this.livrosPorGenero.get("romance")?.filter((livro) => { return livro.favorito }) ?? [] :
+          this.livrosPorGenero.get("romance") ?? []
       },
       {
         id: 'misterio',
         value: 'Mistério',
-        livros: this.livrosPorGenero.get("misterio") ?? []
+        livros: isFavoritos ? this.livrosPorGenero.get("misterio")?.filter((livro) => { return livro.favorito }) ?? [] :
+          this.livrosPorGenero.get("misterio") ?? []
       },
       {
         id: 'fantasia',
         value: 'Fantasia',
-        livros: this.livrosPorGenero.get("fantasia") ?? []
+        livros: isFavoritos ? this.livrosPorGenero.get("fantasia")?.filter((livro) => { return livro.favorito }) ?? [] :
+          this.livrosPorGenero.get("fantasia") ?? []
       },
       {
         id: 'ficcao-cientifica',
         value: 'Ficção Científica',
-        livros: this.livrosPorGenero.get("ficcao-cientifica") ?? []
+        livros: isFavoritos ? this.livrosPorGenero.get("ficcao-cientifica")?.filter((livro) => { return livro.favorito }) ?? [] :
+          this.livrosPorGenero.get("ficcao-cientifica") ?? []
       },
       {
         id: 'tecnicos',
         value: 'Técnicos',
-        livros: this.livrosPorGenero.get("tecnicos") ?? []
+        livros: isFavoritos ? this.livrosPorGenero.get("tecnicos")?.filter((livro) => { return livro.favorito }) ?? [] :
+          this.livrosPorGenero.get("tecnicos") ?? []
       },
     ]
   }
